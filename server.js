@@ -2,34 +2,29 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 
+const response = require("./network/response");
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(router);
-
-// app.use("/", function(req, res){
-//     res.send("Hola");
-// })
-
 
 router.get("/message", function(req, res){
     console.log(req.headers);
     res.header({
         "custom-header": "nuestro valor personalizado"
     });
-    res.send("Lista de Mensajes")
+    response.suceess(req, res, 'Lista de Mensajes');
 });
 
 router.post("/message", function(req, res){
-    res.status(201).send([{error: '', body: 'Creado Correctamente'}]);
-    res.send("Mensaje Añadido");
+    console.log(req.query);
+    if(req.query.error == 'ok'){
+        response.error(req, res, 'Error Simulado', 401);
+    } else {
+        response.suceess(req, res, 'Creado Correctamente', 201);
+    }
 });
-
-router.delete("/message", function(req, res){
-    console.log(req.body);
-    res.send("Mensaje Borrado");
-});
-
 
 app.listen(3000);
 console.log("la aplicación esta escuchando en http://localhost:3000");
