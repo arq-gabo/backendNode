@@ -13,6 +13,10 @@ app.use(router);
 
 
 router.get("/message", function(req, res){
+    console.log(req.headers);
+    res.header({
+        "custom-header": "nuestro valor personalizado"
+    });
     res.send("Lista de Mensajes")
 });
 
@@ -22,7 +26,6 @@ router.post("/message", function(req, res){
 
 router.delete("/message", function(req, res){
     console.log(req.body);
-    console.log(req.query);
     res.send("Mensaje Borrado");
 });
 
