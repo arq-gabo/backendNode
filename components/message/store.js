@@ -1,4 +1,3 @@
-const db = require('mongoose');
 const Model = require('./model');
 
 function addMessage(message){
