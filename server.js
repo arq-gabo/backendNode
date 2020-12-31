@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const response = require("./network/response");
+const db = require("./db");
 
-//const router = require("./components/message/network");
+const { config } = require('./config');
+
 const router = require("./network/routes");
+
+db(`mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}?retryWrites=true&w=majority`)
 
 var app = express();
 app.use(bodyParser.json());
