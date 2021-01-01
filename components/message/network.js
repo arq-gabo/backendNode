@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get("/", function(req, res){
 
-    const filterMessages = req.query.user || null;
+    const filterMessages = req.query.chat || null;
 
     controller.getMessages(filterMessages)
-        .then((messegeList) => {
-            response.suceess(req, res, messegeList, 200);
+        .then((messageList) => {
+            response.suceess(req, res, messageList, 200);
         })
         .catch(e => {
             response.error(req, res, 'Unexpected Error', 500, e);
@@ -18,7 +18,7 @@ router.get("/", function(req, res){
 
 router.post("/", function(req, res){
     
-    controller.addMessage(req.body.user, req.body.message)
+    controller.addMessage(req.body.chat, req.body.user, req.body.message)
         .then((fullMessage) => {
             response.suceess(req, res, fullMessage, 201);            
         })
