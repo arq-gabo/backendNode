@@ -29,9 +29,8 @@ router.get("/", function(req, res){
         })
 });
 
-router.post("/", upload.single('file'), function(req, res){
-    
-    controller.addMessage(req.body.chat, req.body.user, req.body.message)
+router.post("/", upload.single('file'), function(req, res){    
+    controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
         .then((fullMessage) => {
             response.suceess(req, res, fullMessage, 201);            
         })
